@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+<h:head>
+<title>JSF 2: Blank Starting-Point Project</title>
+<link href="./css/styles.css" 
+      rel="stylesheet" type="text/css"/> 
+</h:head>
+<h:body>
+	this is page 3
+	
+	
+	<h:form id="form">
+		<p:calendar value="#{someBean.dateFrom}" id="calFrom" pattern="MM/dd/yyyy HH:mm">  
+	        <p:ajax event="dateSelect" listener="#{someBean.handleDateSelectFrom}" />  
+	    </p:calendar>  
+	    <p:calendar value="#{someBean.dateTo}"  id="calTo" pattern="yyyy-mm-dd">  
+	        <p:ajax event="dateSelect"  listener="#{someBean.handleDateSelectTo}" />  
+	    </p:calendar>
+	    
+		<p:commandButton value="Submit" action="#{someBean.aMethod}" update="fTable" onclick="aDlg.show()">
+	    	<f:ajax render=":form:fTable" execute="@form"></f:ajax>
+	    </p:commandButton>
+	    
+	    <p:dialog id="aDialog" header="Filter List" widgetVar="aDlg"
+                            modal="true" showEffect="explode"
+                            hideEffect="explode" >                                      
+		    <p:panel id="pnl">
+		        <p:dataTable id="fTable" value="#{someBean.listOfNames}" var="row" >
+		            <p:column headerText="ID">
+		                <h:outputText value="#{row}"/>
+		            </p:column>
+		            <p:column headerText="To">
+		                <h:outputText value="#{someBean.dateTo}"/>
+		            </p:column>
+		            <p:column headerText="From">
+		                <h:outputText value="#{someBean.dateFrom}"/>
+		            </p:column>
+		        </p:dataTable>
+		        </p:panel>                  
+		    </p:dialog>
+	</h:form>
+</h:body>
+</html>
