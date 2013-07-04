@@ -11,9 +11,17 @@
 </h:head>
 <h:body>
 	this is page 3
-	
+	<p:lightBox styleClass="imagebox">
+		<h:outputLink value="#">
+			getit
+		</h:outputLink>
+		<f:facet name="inline"> 
+			light box sample
+		</f:facet>
+	</p:lightBox>
 	
 	<h:form id="form">
+	<p:commandLink action="pretty:logout" value="Logout"></p:commandLink>
 		<p:calendar value="#{someBean.dateFrom}" id="calFrom" pattern="MM/dd/yyyy HH:mm">  
 	        <p:ajax event="dateSelect" listener="#{someBean.handleDateSelectFrom}" />  
 	    </p:calendar>  

@@ -17,5 +17,10 @@
 	   	<pattern value="/method" /> 
 		   <view-id value="/page-3.jsf" />	
 	   </url-mapping>
+	   
+	   <url-mapping id="logout">
+	   	<pattern value="/logout" /> 
+		<view-id value="/page-a.jsf" />	
+	   </url-mapping>
                                    		
 </pretty-config>

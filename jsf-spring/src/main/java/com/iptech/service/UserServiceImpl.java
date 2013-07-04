@@ -1,12 +1,19 @@
 package com.iptech.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.iptech.security.Authority;
 
 @Service("userService")
 public class UserServiceImpl implements UserDetailsService{
@@ -14,7 +21,7 @@ public class UserServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
-System.out.println("Getting access details from employee dao !!");
+System.out.println("Getting access details from employee dao !!: "+username);
         
 		// Ideally it should be fetched from database and populated instance of
 		// #org.springframework.security.core.userdetails.User should be returned from this method
@@ -53,9 +60,13 @@ System.out.println("Getting access details from employee dao !!");
 			
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
-				return null;
+				List<Authority> auths = new ArrayList<Authority>();
+				auths.add(new Authority("ROLE_USER"));
+				return auths;
 			}
 		};
+		Authentication authentication =  new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return user;
 	}
 

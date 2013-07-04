@@ -17,10 +17,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.stereotype.Component;
 
 import com.iptech.security.Authority;
-import com.iptech.security.RememberMeService;
 
 @Component
 @Scope("session")
@@ -37,7 +37,7 @@ public class LoginManagedBean implements Serializable{
 	
 	@Inject
 	@Named("rememberMeServices")
-	private RememberMeService rememberMeService;
+	private RememberMeServices rememberMeService;
 
 	public String loginUser(){
 		System.out.println("Username: "+username+" password: "+password);
@@ -54,7 +54,7 @@ public class LoginManagedBean implements Serializable{
 				    @Override public String getParameter(String name) { return "true"; }            
 				};
 				HttpServletResponse response =(HttpServletResponse) context.getExternalContext().getResponse();
-				rememberMeService.onLoginSuccess(wrapper, response, authentication);  
+				rememberMeService.loginSuccess(wrapper, response, authentication);  
 			}
 			return "pretty:page3";
 		}else{
