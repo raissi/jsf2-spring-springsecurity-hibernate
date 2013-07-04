@@ -35,14 +35,7 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
         <password-encoder hash="md5"/>
     </authentication-provider>
 </authentication-manager>
-<!-- 
-<beans:bean id="rememberMeServices" class="com.iptech.security.MyTokenBasedRememberMeServices">
-    <beans:property name="userDetailsService" ref="userService"/>
-    <beans:property name="key" value="thisIsTheKeyValueForHashCreation" />
-    <beans:property name="tokenRepository" ref="jdbcTokenRepository" />
-    <beans:property name="alwaysRemember" value="false" /> 
-</beans:bean>
- -->
+
 <!-- Defines which remember me implementation to use - in this case using a database table to log 'remembered' tokens -->
 <beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices"> 
     <beans:property name="userDetailsService" ref="userService"/>
@@ -58,7 +51,6 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 </beans:bean> 
  
 <beans:bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider"> 
-  <!-- This ensures that remember-me is added as an authentication provider --> 
   <beans:property name="key" value="thisIsTheKeyValueForHashCreation"/> 
 </beans:bean>
 
