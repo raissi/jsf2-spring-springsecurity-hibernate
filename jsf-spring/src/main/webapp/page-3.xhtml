@@ -21,6 +21,7 @@
 	</p:lightBox>
 	
 	<h:form id="form">
+	<p:commandButton update="fffff" rendered="false">Test</p:commandButton>
 	<p:commandLink action="pretty:logout" value="Logout"></p:commandLink>
 		<p:calendar value="#{someBean.dateFrom}" id="calFrom" pattern="MM/dd/yyyy HH:mm">  
 	        <p:ajax event="dateSelect" listener="#{someBean.handleDateSelectFrom}" />  
@@ -32,7 +33,7 @@
 		<p:commandButton value="Submit" action="#{someBean.aMethod}" update="fTable" onclick="aDlg.show()">
 	    	<f:ajax render=":form:fTable" execute="@form"></f:ajax>
 	    </p:commandButton>
-	    
+	    <p:outputPanel autoUpdate="true" />
 	    <p:dialog id="aDialog" header="Filter List" widgetVar="aDlg"
                             modal="true" showEffect="explode"
                             hideEffect="explode" >                                      

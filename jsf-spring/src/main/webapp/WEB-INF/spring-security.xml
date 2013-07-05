@@ -34,6 +34,8 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <authentication-provider user-service-ref="userService">
         <password-encoder hash="md5"/>
     </authentication-provider>
+    <!-- Must be included here, otherwise,  rememberMeAuthenticationProvider won't be called second time when session times out-->
+    <authentication-provider ref="rememberMeAuthenticationProvider" />
 </authentication-manager>
 
 <!-- Defines which remember me implementation to use - in this case using a database table to log 'remembered' tokens -->
@@ -42,6 +44,7 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     <beans:property name="key" value="thisIsTheKeyValueForHashCreation" />
     <beans:property name="tokenRepository" ref="jdbcTokenRepository" />
     <beans:property name="alwaysRemember" value="false" />  
+    <beans:property name="tokenValiditySeconds" value="3600"></beans:property>
 </beans:bean> 
   
 <!-- Uses a database table to maintain a set of persistent login data --> 
@@ -52,6 +55,11 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
  
 <beans:bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider"> 
   <beans:property name="key" value="thisIsTheKeyValueForHashCreation"/> 
+</beans:bean>
+<beans:bean id="rememberMeFilter"
+	class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+	<beans:property name="rememberMeServices" ref="rememberMeServices" />
+	<beans:property name="authenticationManager" ref="authenticationManager" />
 </beans:bean>
 
 </beans:beans>
